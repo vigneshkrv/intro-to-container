@@ -1,5 +1,9 @@
 FROM node:20
 
-COPY index.js index.js
+RUN useradd -ms /bin/bash yellow
 
-CMD ["node", "index.js"]
+USER yellow
+
+COPY index.js /home/yellow/code/index.js
+
+CMD ["node", "/home/yellow/code/index.js"]
