@@ -1,12 +1,17 @@
-const http = require("http");
+// this is the sample app from fastify.dev
 
-http
-  .createServer(function (request, response) {
-    console.log("request received");
-    response.end("omg hi", "utf-8");
-  })
-  .listen(3000);
-console.log("server started");
+// Require the framework and instantiate it
+const fastify = require("fastify")({ logger: true });
 
-//docker build -t basic-node:2 .
-// docker run --init --publish 3000:3000 --rm --name nodeApp basic-node:2
+// Declare a route
+fastify.get("/", function handler(request, reply) {
+  reply.send({ hello: "world" });
+});
+
+// Run the server!
+fastify.listen({ port: 8080, host: "0.0.0.0" }, (err) => {
+  if (err) {
+    fastify.log.error(err);
+    process.exit(1);
+  }
+});
