@@ -1,14 +1,10 @@
 FROM node:20
 
-RUN useradd -ms /bin/bash yellow
+USER node
 
-WORKDIR /home/yellow/code
+WORKDIR /home/node/code
 
-COPY . .
-
-RUN chown -R yellow:yellow /home/yellow/code
-
-USER yellow
+COPY --chown=node . .
 
 RUN npm ci
 
